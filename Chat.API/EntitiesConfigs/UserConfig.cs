@@ -1,0 +1,27 @@
+﻿using Chat.API.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Chat.API.EntitiesConfigs
+{
+    public class UserConfig : IEntityTypeConfiguration<User>
+    {
+        public void Configure(EntityTypeBuilder<User> builder)
+        {
+            builder.Property(u => u.PhoneNumber)
+            .HasMaxLength(13);// With country code
+
+            builder.Property(u => u.ConnectionId)
+                .HasMaxLength(200);
+
+            builder.Property(u => u.FirstName)
+                .HasMaxLength(100);
+
+            builder.Property(u => u.LastName)
+                .HasMaxLength(200);
+
+            builder.Property(u => u.Bio)
+                .HasMaxLength(100);
+        }
+    }
+}
