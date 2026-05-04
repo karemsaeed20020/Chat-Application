@@ -1,0 +1,27 @@
+﻿global using ChatApplication.API.Entites;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Identity.UI.Services;
+global using FluentValidation;
+global using ChatApplication.API.Abstractions;
+global using ChatApplication.API.Errors;
+global using ChatApplication.API.Data;
+global using Microsoft.AspNetCore.Authorization;
+global using ChatApplication.API.Const;
+global using ChatApplication.API.Services.UserService;
+global using Microsoft.AspNetCore.Identity;
+global using ChatApplication.API.DTOs.User;
+global using ChatApplication.API.enums;
+global using Microsoft.AspNetCore.SignalR;
+global using ChatApplication.API.Common;
+
+
+
+
+
+
+
+
+
+
+
+

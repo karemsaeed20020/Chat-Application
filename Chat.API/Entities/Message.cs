@@ -1,5 +1,4 @@
-﻿using Chat.API.enums;
-
+﻿
 namespace Chat.API.Entities
 {
     public class Message

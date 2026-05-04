@@ -1,5 +1,6 @@
-﻿namespace Chat.API.enums
-{
+﻿namespace ChatApplication.API.enums;
+
+
     public enum MessageType
     {
         Text,
@@ -7,4 +8,3 @@
         File,
         System
     }
-}

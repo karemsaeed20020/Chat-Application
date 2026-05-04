@@ -1,0 +1,12 @@
+﻿using Microsoft.AspNetCore.Http;
+
+namespace ChatApplication.API.Errors;
+
+public static class MessageErrors
+{
+	public readonly static Error NoMessagesFound = new("Messages.NoMessagesFound","No messages were found between the specified users.",StatusCodes.Status404NotFound);
+	public readonly static Error NoMessagesUnread = new("Messages.NoMessagesUnread","No messages were found unread.",StatusCodes.Status404NotFound);
+	public readonly static Error MessageNotFound = new("Messages.MessageNotFound","No messages were found.",StatusCodes.Status404NotFound);
+	public readonly static Error NoPinnedMessagesFound = new("Messages.NoPinnedMessagesFound","No pinned messages found.",StatusCodes.Status404NotFound);
+	public readonly static Error UserNotFound = new("Messages.UserNotFound","No pinned messages found.",StatusCodes.Status404NotFound);
+}
