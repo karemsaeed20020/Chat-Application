@@ -114,3 +114,17 @@ Chat--Application/
 | GET    | `/api/users/:id`            | Get user by ID                   | ✅            |
 | GET    | `/api/users/online`         | Get all online users             | ✅            |
 
+### Socket.io Events
+
+#### Client → Server (Emit)
+
+| Event Name          | Payload                                      | Description                    |
+|---------------------|----------------------------------------------|--------------------------------|
+| `join_room`         | `{ messageId: string }`                         | Join a chat room               |
+| `leave_room`        | `{ messageId: string }`                         | Leave a chat room              |
+| `send_message`      | `{ messageId, content, type, attachments }`     | Send a new message             |
+| `typing_start`      | `{ messageId: string, userId: string }`         | User started typing            |
+| `typing_stop`       | `{ messageId: string, userId: string }`         | User stopped typing            |
+| `message_read`      | `{ messageId: string, chatId: string }`      | Mark message as read           |
+| `user_online`       | `{ userId: string }`                         | User came online               |
+| `user_offline`      | `{ userId: string }`                         | User went offline              |
