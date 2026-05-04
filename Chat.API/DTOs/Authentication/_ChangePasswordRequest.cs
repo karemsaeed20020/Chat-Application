@@ -1,8 +1,7 @@
 ﻿namespace ChatApplication.API.DTOs.Authentication;
 
-public record _ResetPasswordRequest
+public record _ChangePasswordRequest
 (
-	string Email,
-	string Code,
+	string CurrentPassword,
 	string NewPassword
 );

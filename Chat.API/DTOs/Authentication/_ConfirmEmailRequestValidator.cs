@@ -1,15 +1,12 @@
-﻿using FluentValidation;
+﻿namespace ChatApplication.API.DTOs.Authentication;
 
-namespace Chat.API.DTOs.Authentication
+public class _ConfirmEmailRequestValidator : AbstractValidator<_ConfirmEmailRequest>
 {
-    public class _ConfirmEmailRequestValidator : AbstractValidator<_ConfirmEmailRequest>
-    {
-        public _ConfirmEmailRequestValidator()
-        {
-            RuleFor(x => x.UseId)
-                .NotEmpty().WithMessage("UserId is required.");
-            RuleFor(x => x.Code)
-                .NotEmpty().WithMessage("Confirmation code is required.");
-        }
-    }
+	public _ConfirmEmailRequestValidator()
+	{
+		RuleFor(x => x.UserId)
+			.NotEmpty();
+		RuleFor(x => x.Code)
+			.NotEmpty();
+	}
 }
