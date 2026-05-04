@@ -1,21 +1,19 @@
-﻿using Chat.API.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Chat.API.EntitiesConfigs
+namespace ChatApplication.API.EntitiesConfigs;
+
+public class ChatRoomConfig : IEntityTypeConfiguration<ChatRoom>
 {
-    public class ChatRoomConfig : IEntityTypeConfiguration<ChatRoom>
-    {
-        public void Configure(EntityTypeBuilder<ChatRoom> builder)
-        {
-            builder.Property(cr => cr.Name)
-              .HasMaxLength(200);
+	public void Configure(EntityTypeBuilder<ChatRoom> builder)
+	{
 
-            builder.HasIndex(cr => cr.Name)
-                .IsUnique();
+		builder.Property(cr => cr.Name)
+			.HasMaxLength(200);
 
-            builder.Property(cr => cr.Description)
-                .HasMaxLength(500);
-        }
-    }
+		builder.HasIndex(cr=>cr.Name)
+			.IsUnique();
+
+		builder.Property(cr => cr.Description)
+			.HasMaxLength(500);
+	}
 }

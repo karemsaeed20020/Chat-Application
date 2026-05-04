@@ -1,14 +1,12 @@
-﻿using Chat.API.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Chat.API.EntitiesConfigs
+namespace ChatApplication.API.EntitiesConfigs;
+
+public class ChatRoomUserConfig : IEntityTypeConfiguration<ChatRoomUser>
 {
-    public class ChatRoomUserConfig : IEntityTypeConfiguration<ChatRoomUser>
-    {
-        public void Configure(EntityTypeBuilder<ChatRoomUser> builder)
-        {
-            builder.HasKey(cru => new { cru.ChatRoomId, cru.UserId });
-        }
-    }
+	public void Configure(EntityTypeBuilder<ChatRoomUser> builder)
+	{
+		builder.HasKey(cru => new { cru.ChatRoomId, cru.UserId });
+	}
 }
+
