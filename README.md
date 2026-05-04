@@ -12,6 +12,19 @@ A modern and features rich real-time chat application that enables seamless comm
 # Account
 <img width="1813" height="627" alt="Image" src="https://github.com/user-attachments/assets/e938ab41-9d75-41bb-b6e9-7c566f6293c6" />
 
+# User
+<img width="1797" height="886" alt="Image" src="https://github.com/user-attachments/assets/e75e5f4c-9df2-4d2a-9d55-d0b4143f039c" />
+
+# Message
+<img width="1812" height="677" alt="Image" src="https://github.com/user-attachments/assets/9f68c3f8-ff64-4bef-9d8a-843394097164" />
+
+<img width="1826" height="627" alt="Image" src="https://github.com/user-attachments/assets/b5eccd52-5c4e-4c63-9600-5290ba6a22ca" />
+
+# Room
+<img width="1811" height="757" alt="Image" src="https://github.com/user-attachments/assets/9dc97980-b58b-4334-9736-48d46e15186d" />
+
+<img width="1816" height="433" alt="Image" src="https://github.com/user-attachments/assets/8b4b70a1-5ee3-44e2-97af-44cddf8a7495" />
+
 ## ✨ Features
 
 ### Core Functionality
