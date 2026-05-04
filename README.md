@@ -88,3 +88,29 @@ Chat--Application/
 ├── LICENSE
 └── README.md
 ```
+
+## 📚 API Documentation
+
+### Some Ex Auth Endpoints (`/api/auth`)
+
+| Method | Endpoint                        | Description                 | Auth Required |
+|--------|---------------------------------|-----------------------------|---------------|
+| POST   | `/api/auth/login`               | Login user                  | ❌            |
+| POST   | `/api/auth/register`            | Register new user           | ❌            |
+| POST   | `/api/auth/refresh`             | Refresh JWT token           | ❌            |
+| PUT    | `/api/auth/revoke-refresh-token`| Revoke refresh token        | ✅            |
+| POST   | `/api/auth/confirm-email`       | Confirm email address       | ❌            |
+| POST   | `/api/auth/forget-password`     | Initiate password reset     | ❌            |
+| POST   | `/api/auth/reset-password`      | Complete password reset     | ❌            |
+
+### Some Ex User Endpoints (`/api/users`)
+
+| Method | Endpoint                    | Description                      | Auth Required |
+|--------|-----------------------------|----------------------------------|---------------|
+| GET    | `/api/users/profile`        | Get current user profile         | ✅            |
+| PUT    | `/api/users/profile`        | Update user profile              | ✅            |
+| POST   | `/api/users/avatar`         | Upload profile avatar            | ✅            |
+| GET    | `/api/users/search`         | Search users by name/email       | ✅            |
+| GET    | `/api/users/:id`            | Get user by ID                   | ✅            |
+| GET    | `/api/users/online`         | Get all online users             | ✅            |
+
