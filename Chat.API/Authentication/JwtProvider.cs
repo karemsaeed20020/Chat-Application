@@ -42,5 +42,28 @@ namespace Chat.API.Authentication
             return (token: new JwtSecurityTokenHandler().WriteToken(token), expireIn: expiresIn);
 
         }
+
+        public string? ValidateToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            try
+            {
+                var principal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key)),
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken securityToken);
+
+                var JwtToken = (JwtSecurityToken)securityToken;
+                return JwtToken.Claims.First(x => x.Type == JwtRegisteredClaimNames.Sub).Value;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
