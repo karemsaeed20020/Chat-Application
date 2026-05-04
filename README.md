@@ -45,3 +45,46 @@ A modern and features rich real-time chat application that enables seamless comm
 - ✅ **Background Jobs**          : Used Hangfire for managing background tasks like sending confirmation emails and processing password resets seamlessly.
 - ✅ **Audit Logging**            :Implemented audit logging to track changes on resources, ensuring transparency and accountability in user actions.
 - ✅ **Fluent Validation**        :Ensured data integrity by effectively validating inputs, leading to user-friendly error messages.
+
+## 🛠️ Technologies Used
+
+- Backend          : ASP.NET Core 10
+- Real-Time        : SignalR
+- ORM              : Entity Framework Core 
+- Database         : SQL Server 
+- Auth             : JWT + Identity
+- Validation       : FluentValidation
+- Mapping          : Manual using extension method
+- Architecture     : Monolithic
+- File Storage     : wwwroot/uploads 
+- GUIDs            : Version 7 (sequential & fast)
+
+## 📁 Project Structure
+
+```
+Chat--Application/
+│   ├── public/            # Static files
+│   ├── src/
+│   │   ├── assets/        # Images, etc.
+│   │   ├── components/    # Reusable components
+│   │   │   ├── Chat/
+│   │   │   ├── Auth/
+│   │   │   ├── Profile/
+│   │   │   └── Common/
+│   │   ├── pages/         # Page components
+│   │   ├── context/       # Context API
+│   │   ├── services/      # API services
+│   └── .env
+│
+├── server/                # Backend application
+│   ├── config/            # Configuration files
+│   ├── controllers/       # Route controllers
+│   ├── models/            # Database models
+│   ├── routes/            # API routes
+│   ├── socket/            # Socket.io handlers
+│   └── .env
+│
+├── .gitignore
+├── LICENSE
+└── README.md
+```
