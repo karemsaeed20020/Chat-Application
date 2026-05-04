@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Chat.API.Settings
+namespace ChatApplication.API.Settings;
+
+public class JwtSettings
 {
-    public class JwtSettings
-    {
-        [Required]
-        public string Key { get; set; } = null!;
-        [Required]
-        public string Issuer { get; set; } = null!;
-        [Required]
-        public string Audience { get; set; } = null!;
-        [Range(1, int.MaxValue)]
-        public int ExpiryMinutes { get; set; }
-    }
+	[Required]
+	public string Key { get; set; } = null!;
+	[Required]
+	public string Issuer { get; set; } = null!;
+	[Required]
+	public string Audience { get; set; } = null!;
+	[Range(1, int.MaxValue)]
+	public int ExpiryMinutes { get; set; }
 }
