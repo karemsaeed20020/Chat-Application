@@ -1,5 +1,4 @@
-﻿using Chat.API.Abstractions;
-
+﻿
 namespace Chat.API.Errors
 {
     public static class UserError
