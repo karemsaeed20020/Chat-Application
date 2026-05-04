@@ -1,8 +1,7 @@
-﻿namespace Chat.API.DTOs.Authentication
-{
-    public record _RefreshTokenRequest
+﻿namespace ChatApplication.API.DTOs.Authentication;
+
+public record _RefreshTokenRequest
 (
-    string Token,
-    string RefreshToken
+	string Token,
+	string RefreshToken
 );
-}

@@ -1,13 +1,10 @@
-﻿using FluentValidation;
+﻿namespace ChatApplication.API.DTOs.Authentication;
 
-namespace Chat.API.DTOs.Authentication
+public class _RefreshTokenRequestValidator : AbstractValidator<_RefreshTokenRequest>
 {
-    public class _RefreshTokenRequestValidator : AbstractValidator<_RefreshTokenRequest>
-    {
-        public _RefreshTokenRequestValidator()
-        {
-            RuleFor(x => x.Token).NotEmpty();
-            RuleFor(x => x.RefreshToken).NotEmpty();
-        }
-    }
+	public _RefreshTokenRequestValidator()
+	{
+		RuleFor(x => x.Token).NotEmpty();
+		RuleFor(x => x.RefreshToken).NotEmpty();
+	}
 }

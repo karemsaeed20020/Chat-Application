@@ -1,8 +1,7 @@
-﻿namespace Chat.API.DTOs.Authentication
-{
-    public record _LoginRequest
-    (
-        string Email,
-        string Password
-    );
-}
+﻿namespace ChatApplication.API.DTOs.Authentication;
+
+public record _LoginRequest
+(
+	string Email,
+	string Password
+);

@@ -1,11 +1,9 @@
-﻿using Chat.API.Entities;
+﻿namespace ChatApplication.API.Authentication;
 
-namespace Chat.API.Authentication
+public interface IJwtProvider
 {
-    public interface IJwtProvider
-    {
-        (string token, int expireIn) GenerateToken(User user, IEnumerable<string> roles);
-        //Refresh Token
-        string? ValidateToken(string token);
-    }
+	(string taken, int expireIn) GenerateTaken(User user, IEnumerable<string> roles);
+
+	//Refresh Taken
+	string? ValidateTaken(string taken);
 }
