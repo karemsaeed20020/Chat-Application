@@ -21,3 +21,27 @@ A modern and features rich real-time chat application that enables seamless comm
 - 👨‍👩‍👧‍👦 **Group Chat** - Create and manage group conversations
 - 📎 **Media Sharing** - Send and receive images, videos, and files
 - 🔍 **User Search** - Find and connect with other users
+### Advanced Features
+- ✅ **Message Read Receipts** - See when messages are delivered and read
+- ✅ **Typing Indicators** - Know when someone is typing
+- ✅ **Profile Customization** - Update profile picture and status
+- ✅ **Message Management** - Edit and delete your messages
+- ✅ **Online Status** - See who's currently online
+- ✅ **Real-Time Messaging**    : SignalR WebSockets
+- ✅ **Private & Group Chats**   : Complete
+- ✅ **File/Image/Video Upload** : Atomic with message (no separate endpoint)
+- ✅ **Message Pinning**         : One per room
+- ✅ **Read Receipts**           : Double check
+- ✅ **Profile Avatar & Status** : Upload + live sync
+- ✅ **User Search**             : Instant results
+- ✅ **Block User**              : Privacy control
+- ✅ **JWT Authentication**      : ASP.NET Identity
+- ✅ **Pagination**              : Infinite scroll ready
+- ✅ **Error Handling
+  with Result Pattern**           :Employed a result pattern for structured error handling, providing clear and actionable feedback to users.
+  ✅ **Exception Handling**       :Integrated centralized exception handling to manage errors gracefully, significantly enhancing the user experience.
+- ✅ **CORS (Cross-Origin
+   Resource Sharing)**            :a security feature implemented by web browsers to prevent web pages from making requests to a different domain than the one that served the web page. 
+- ✅ **Background Jobs**          : Used Hangfire for managing background tasks like sending confirmation emails and processing password resets seamlessly.
+- ✅ **Audit Logging**            :Implemented audit logging to track changes on resources, ensuring transparency and accountability in user actions.
+- ✅ **Fluent Validation**        :Ensured data integrity by effectively validating inputs, leading to user-friendly error messages.
