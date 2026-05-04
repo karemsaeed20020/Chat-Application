@@ -108,7 +108,157 @@ namespace Chat.API.Authentication
             await Task.CompletedTask;
         }
 
+        private async Task SendResetPassword(User user, string code)
+        {
+            var origin = _httpContextAccessor.HttpContext?.Request.Headers.Origin;
+            var TempPath = $"{Directory.GetCurrentDirectory()}/Templates/ForgetPassword.html";
+            StreamReader streamReader = new StreamReader(TempPath);
+            var body = streamReader.ReadToEnd();
+            streamReader.Close();
+            body = body
+                .Replace("{{name}}", $"{user}")
+                .Replace("{{action_url}}", $"{origin}/auth/ForgetPassword?email={user.Email}&code={code}");
+
+            await _emailSender.SendEmailAsync(user.Email!, "Reset your password", body);
+            await Task.CompletedTask;
+        }
+
         // Generate Refresh Token
         private static string GenerateRefreshToken() => Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+        // Confirm Email
+        public async Task<Result> ConfirmEmailAsync(_ConfirmEmailRequest request)
+        {
+            var user = await _userManager.FindByIdAsync(request.UseId);
+            if (user is null)
+            {
+                return Result.Failure(UserError.UserNotFound);
+            }
+            if (user.EmailConfirmed)
+            {
+                return Result.Failure(UserError.DuplicateConfirmed);
+            }
+            var code = request.Code;
+            try
+            {
+                code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure(UserError.InvalidCode);
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            if (result.Succeeded)
+            {
+                return Result.Success();
+            }
+            var error = result.Errors.First();
+            return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
+        }
+
+        public async Task<Result> SendResetPasswordAsync(_ForgotPasswordRequest request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user == null)
+                return Result.Success(); // Don't reveal that the email does not exist
+            if (!user.EmailConfirmed)
+                return Result.Failure(UserError.EmailNotConfirmed);
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            await SendResetPassword(user, code);
+            return Result.Success();
+        }
+
+        public async Task<Result> ResetPasswordAsync(_ResetPasswordRequest request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user is null || !user.EmailConfirmed)
+                return Result.Failure(UserError.InvalidCode);
+            IdentityResult result;
+            try
+            {
+                var code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Code));
+                result = await _userManager.ResetPasswordAsync(user, code, request.NewPassword);
+            }
+            catch (FormatException)
+            {
+                result = IdentityResult.Failed(_userManager.ErrorDescriber.InvalidToken());
+            }
+            if (result.Succeeded)
+                return Result.Success();
+
+            var error = result.Errors.First();
+            return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status401Unauthorized));
+        }
+
+        public async Task<Result> ResendConfirmationEmailAsync(_ResendConfirmationEmailRequest request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user is null)
+                return Result.Success();
+            if (user.EmailConfirmed)
+                return Result.Failure(UserError.DuplicateConfirmed);
+
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            await SendEmailConfirmation(user, code);
+            return Result.Success();
+        }
+
+        public async Task<Result<AuthResponse>> GetRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
+        {
+            var userId = _jwtProvider.ValidateToken(token);
+            if (userId is null)
+                return Result.Failure<AuthResponse>(UserError.InvalidRefreshToken);
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user is null)
+                return Result.Failure<AuthResponse>(UserError.InvalidRefreshToken);
+
+            if (user.LockoutEnd > DateTime.UtcNow)
+                return Result.Failure<AuthResponse>(UserError.UserLockOut);
+
+
+            var userRefreshToken = user.RefreshTokens.SingleOrDefault(r => r.Token == refreshToken);
+            if (userRefreshToken is null)
+                return Result.Failure<AuthResponse>(UserError.InvalidRefreshToken);
+            userRefreshToken.RevokedIn = DateTime.UtcNow;
+
+            //Regenerate new token
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var (newToken, expiresIn) = _jwtProvider.GenerateToken(user, userRoles);
+
+            //generate new refresh taken
+            var newRefreshToken = GenerateRefreshToken();
+            var refreshTokenExpiration = DateTime.UtcNow.AddDays(_refreshTokenExpiryDays);
+            user.RefreshTokens.Add(new RefreshToken
+            {
+                Token = newRefreshToken,
+                ExpiresIn = refreshTokenExpiration
+            });
+            await _userManager.UpdateAsync(user);
+
+            var response = new AuthResponse(user.Id, user.Email, user.FirstName, user.LastName, newToken, expiresIn, newRefreshToken, refreshTokenExpiration);
+            return Result.Success(response);
+
+        }
+
+        public async Task<Result> RevokeRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
+        {
+            var userId = _jwtProvider.ValidateToken(token);
+            if (userId is null)
+                return Result.Failure(UserError.InvalidRefreshToken_Token);
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user is null)
+                return Result.Failure(UserError.InvalidRefreshToken_Token);
+
+            var userRefreshToken = user.RefreshTokens.SingleOrDefault(u => u.Token == refreshToken);
+            if (userRefreshToken is null)
+                return Result.Failure(UserError.InvalidRefreshToken_Token);
+
+            userRefreshToken.RevokedIn = DateTime.UtcNow;
+            await _userManager.UpdateAsync(user);
+            return Result.Success();
+        }
     }
 }
