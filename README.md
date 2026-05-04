@@ -128,3 +128,18 @@ Chat--Application/
 | `message_read`      | `{ messageId: string, chatId: string }`      | Mark message as read           |
 | `user_online`       | `{ userId: string }`                         | User came online               |
 | `user_offline`      | `{ userId: string }`                         | User went offline              |
+
+#### Server → Client (Listen)
+
+| Event Name          | Payload                                      | Description                    |
+|---------------------|----------------------------------------------|--------------------------------|
+| `message_received`  | `{ message: Object, chatId: string }`        | New message received           |
+| `message_updated`   | `{ messageId: string, content: string }`     | Message was edited             |
+| `message_deleted`   | `{ messageId: string, chatId: string }`      | Message was deleted            |
+| `user_typing`       | `{ chatId: string, user: Object }`           | Someone is typing              |
+| `user_stopped_typing`| `{ chatId: string, userId: string }`        | Someone stopped typing         |
+| `user_online_status`| `{ userId: string, status: boolean }`        | User online status changed     |
+| `message_read_receipt`| `{ messageId: string, readBy: string }`    | Message read by user           |
+| `chat_updated`      | `{ chatId: string, updates: Object }`        | Chat details updated           |
+| `error`             | `{ message: string, code: string }`          | Error occurred                 |
+
