@@ -11,3 +11,13 @@ A modern and features rich real-time chat application that enables seamless comm
 
 # Account
 <img width="1813" height="627" alt="Image" src="https://github.com/user-attachments/assets/e938ab41-9d75-41bb-b6e9-7c566f6293c6" />
+
+## ✨ Features
+
+### Core Functionality
+- 🔐 **User Authentication** - Secure sign up, login, and logout
+- 💬 **Real-time Messaging** - Instant message delivery using WebSocket technology
+- 👥 **Private Chat** - One-on-one conversations with other users
+- 👨‍👩‍👧‍👦 **Group Chat** - Create and manage group conversations
+- 📎 **Media Sharing** - Send and receive images, videos, and files
+- 🔍 **User Search** - Find and connect with other users
